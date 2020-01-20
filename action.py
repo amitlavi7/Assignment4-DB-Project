@@ -16,16 +16,15 @@ def insert_to_tables(conn):
 
 
 def make_activities(cur):
-    activities = cur.execute("""
-    SELECT name FROM sqlite_master 
-    WHERE type = "table" 
-    AND name = "Activities"
-    """)
+    activities = cur.execute('SELECT * FROM ' + 'Activities')
     # for row in cur.execute("""SELECT name FROM sqlite_master WHERE type = "table" AND name = 'Activities'"""):
     #     if row[1] > 0:
     #         add_product("SELECT name FROM Activities WHERE proudct_id=(row[0])","SELECT name FROM Activities WHERE quantity=(row[1])")
-    for row in activities:
-            print(row)
+    activity_list = activities.fetchall();
+    # for activity in activity_list:
+    #     lineList = activity.split(', ')
+    #     add_product(lineList[0],lineList[1])
+    print(activity_list)
 
 def add_product(id, quantity):
     print("id = " + id + "quantity = " + quantity)
