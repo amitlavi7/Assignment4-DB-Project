@@ -39,7 +39,9 @@ def add_product(cur, activity_id, quantity):
 
 conn = sqlite3.connect(DB_NAME)
 cur = conn.cursor()
-insert_to_tables(conn)
-make_activities(conn)
-conn.commit()
-conn.close()
+count = cur.execute("SELECT count(*) FROM Activities").fetchone()[0]
+if count == 0:
+    insert_to_tables(conn)
+    make_activities(conn)
+    conn.commit()
+    conn.close()

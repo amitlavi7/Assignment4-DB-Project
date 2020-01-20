@@ -42,7 +42,7 @@ def create_tables(conn):
 
 
 def insert_to_tables(conn):
-    with open("config.txt", "r") as file:
+    with open(sys.argv[1], "r") as file:
         for line in file:
             if line[-1] == '\n':
                 line = line[:-1]
