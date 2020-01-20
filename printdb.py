@@ -2,62 +2,58 @@ import sqlite3
 import os
 import sys
 
+from DAO import Employees, Coffee_stands, Products, Suppliers, Activities
+
 DB_NAME = "moncafe.db"
 
 
-def print_Coffee_stands(cur):
-    cur.execute('SELECT * FROM Coffee_stands ORDER BY Coffee_stands.id ')
-    list = cur.fetchall()
-    print("Coffee_stands")
-    i = 0
-    for item in list:
-        i = i + 1
-        print("{}".format(str(item)))
+def print_Coffee_stands(conn):
+    all_Coffee_stands = Coffee_stands(conn).find_all()
+    print("Coffee stand")
+    for Coffee_stand in all_Coffee_stands:
+        print(Coffee_stand)
 
-def print_Activities(cur):
-    cur.execute('SELECT * FROM Activities ORDER BY Activities.date')
-    list = cur.fetchall()
+
+def print_Activities(conn):
     print("Activities")
-    i = 0
-    for item in list:
-        i = i + 1
-        print("{}".format(str(item)))
+    all_Activities = Activities(conn).find_all()
+    for Activity in all_Activities:
+        print(Activity)
 
-def print_Employees(cur):
-    cur.execute('SELECT * FROM Employees ORDER BY Employees.id ')
-    list = cur.fetchall()
+
+def print_Employees(conn):
     print("Employees")
-    i = 0
-    for item in list:
-        i = i + 1
-        print("{}".format(str(item)))
+    all_employees = Employees(conn).find_all()
+    for employee in all_employees:
+        print(employee)
 
-def print_Products(cur):
-    cur.execute('SELECT * FROM Products ORDER BY Products.id ')
-    list = cur.fetchall()
+
+def print_Products(conn):
     print("Products")
-    i = 0
-    for item in list:
-        i = i + 1
-        print("{}".format(str(item)))
+    all_Products = Products(conn).find_all()
+    for Product in all_Products:
+        print(Product)
 
-def print_Suppliers(cur):
-    cur.execute('SELECT * FROM Suppliers ORDER BY Suppliers.id ')
-    list = cur.fetchall()
+
+def print_Suppliers(conn):
     print("Suppliers")
-    i = 0
-    for item in list:
-        i = i + 1
-        print("{}".format(str(item)))
+    all_Suppliers = Suppliers(conn).find_all()
+    for Supplier in all_Suppliers:
+        print(Supplier)
 
-def print_all_tables(cur):
-    print_Activities(cur)
-    print_Coffee_stands(cur)
-    print_Employees(cur)
-    print_Products(cur)
-    print_Suppliers(cur)
+
+def print_all_tables(conn):
+    print_Activities(conn)
+    print_Coffee_stands(conn)
+    print_Employees(conn)
+    print_Products(conn)
+    print_Suppliers(conn)
+
+
+def print_employees_report():
+    asd
 
 
 conn = sqlite3.connect(DB_NAME)
-cur = conn.cursor()
-print_all_tables(cur)
+print_all_tables(conn)
+print_employees_report()

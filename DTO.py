@@ -5,8 +5,8 @@ class Employee:
         self.salary = salary
         self.coffee_stand = coffee_stand
 
-    def to_string(self):
-        print("(" + self.id + ", " + self.name + ", " + self.salary + ", " + self.coffee_stand + ")")
+    def __str__(self):
+        return "(" + str(self.id) + ", " + self.name + ", " + str(self.salary) + ", " + str(self.coffee_stand) + ")"
 
 
 class Supplier:
@@ -14,6 +14,9 @@ class Supplier:
         self.id = id
         self.name = name
         self.contact_information = contact_information
+
+    def __str__(self):
+        return "(" + str(self.id) + ", " + self.name + ", " + str(self.contact_information) + ")"
 
 
 class Product:
@@ -23,12 +26,18 @@ class Product:
         self.price = price
         self.quantity = quantity
 
+    def __str__(self):
+        return "(" + str(self.id) + ", " + self.description + ", " + str(self.price) + ", " + str(self.quantity) + ")"
+
 
 class Coffee_stand:
     def __init__(self, id, location, number_of_employees):
         self.id = id
         self.location = location
         self.number_of_employees = number_of_employees
+
+    def __str__(self):
+        return "(" + str(self.id) + ", " + self.location + ", " + str(self.number_of_employees) + ")"
 
 
 class Activity:
@@ -37,3 +46,7 @@ class Activity:
         self.quantity = quantity
         self.activator_id = activator_id
         self.date = date
+
+    def __str__(self):
+        return("(" + str(self.product_id) + ", " + str(self.quantity) + ", " + str(self.activator_id) + ", " + str(
+            self.date) + ")")
