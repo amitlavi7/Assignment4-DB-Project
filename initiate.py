@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import sys
 
 DB_NAME = "moncafe.db"
 
@@ -31,9 +32,8 @@ def create_tables(conn):
                     location TEXT NOT NULL, 
                     number_of_employees INTEGER
                     );
-
                     CREATE TABLE Activities(
-                    product_id INTEGER INTEGER REFERENCES Product(id), 
+                    product_id INTEGER INTEGER REFERENCES product(id), 
                     quantity INTEGER NOT NULL,
                     activator_id INTEGER NOT NULL, 
                     date DATE NOT NULL
@@ -60,6 +60,10 @@ def insert_to_tables(conn):
                 conn.execute("INSERT INTO Products VALUES(?,?,?,?)",
                              (lineList[1], lineList[2], lineList[3], 0))
 
+
+
+if os.path.isfile(DB_NAME):
+    os.remove("moncafe.db")
 
 if not os.path.isfile(DB_NAME):
     conn = sqlite3.connect(DB_NAME)
