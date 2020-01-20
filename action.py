@@ -24,14 +24,17 @@ def make_activities(cur):
 
 def add_product(cur, activity_id, quantity):
     quantity_cursor = cur.execute("SELECT quantity From Products WHERE id = ({})".format(activity_id))
+    quantity_product = quantity_cursor.fetchone()[0] + quantity
     if quantity > 0:
-        quantity_product = quantity_cursor.fetchone()[0] + quantity
         cur.execute("""
         UPDATE Products
         SET quantity = ({}) WHERE id = ({})
         """.format(quantity_product, activity_id))
-    # else:
-    #     quantity_product = quantity_product + quantity
+    else:
+        if quantity_product >= 0:
+            cur.execute("""UPDATE Products
+                        SET quantity =({}) WHERE id =({})
+            """.format(quantity_product, activity_id))
 
 
 conn = sqlite3.connect(DB_NAME)
