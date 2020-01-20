@@ -51,3 +51,9 @@ if count == 0:
     make_activities(conn)
     conn.commit()
     conn.close()
+else:
+    cur.execute("DELETE FROM Activities")
+    insert_to_tables(conn)
+    make_activities(conn)
+    conn.commit()
+    conn.close()
