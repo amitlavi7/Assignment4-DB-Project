@@ -50,10 +50,12 @@ def print_all_tables(conn):
     print_Suppliers(conn)
 
 
-def print_employees_report():
-    asd
+# def print_employees_report():
+#     asd
+#
+# def print_activity_report():
 
 
 conn = sqlite3.connect(DB_NAME)
 print_all_tables(conn)
-print_employees_report()
+# print_employees_report()

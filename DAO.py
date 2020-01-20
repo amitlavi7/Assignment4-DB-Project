@@ -50,6 +50,19 @@ class Products:
 
         return [Product(*row) for row in all]
 
+    def find(self, quantity_id):
+        one = self._conn.cursor()
+        one.execute("SELECT id,description,price,quantity From Products WHERE id = ({})".format(quantity_id))
+
+        return Product(*one.fetchone())
+
+    def update(self, quantity_product, activity_id):
+        c = self._conn.cursor()
+        c.execute("""
+                UPDATE Products
+                SET quantity = ({}) WHERE id = ({})
+                """.format(quantity_product, activity_id))
+
 
 class Activities:
     def __init__(self, conn):

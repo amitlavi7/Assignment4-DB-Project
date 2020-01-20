@@ -12,35 +12,44 @@ def insert_to_tables():
                 line = line[:-1]
             lineList = line.split(', ')
             activity = Activity(lineList[0], lineList[1], lineList[2], lineList[3])
-            repo.Activities.insert(activity)
+            quantity_of_product = repo.Products.find(lineList[0]).quantity
+            quantity_of_product_after_activity = quantity_of_product + int(lineList[1])
+            if int(lineList[1]) > 0:
+                repo.Products.update(quantity_of_product_after_activity, lineList[0])
+                repo.Activities.insert(activity)
+            else:
+                if quantity_of_product_after_activity >= 0:
+                    repo.Products.update(quantity_of_product_after_activity, lineList[0])
+                    repo.Activities.insert(activity)
 
 
-def make_activities(cur):
-    activities = cur.execute('SELECT * FROM Activities')
-    activity_list = activities.fetchall()
-    for activity in activity_list:
-        add_product(cur, activity[0], activity[1])
 
-
-def add_product(cur, activity_id, quantity):
-    quantity_cursor = cur.execute("SELECT quantity From Products WHERE id = ({})".format(activity_id))
-    quantity_product = quantity_cursor.fetchone()[0] + quantity
-    if quantity > 0:
-        cur.execute("""
-        UPDATE Products
-        SET quantity = ({}) WHERE id = ({})
-        """.format(quantity_product, activity_id))
-    else:
-        if quantity_product >= 0:
-            cur.execute("""UPDATE Products
-                        SET quantity =({}) WHERE id =({})
-            """.format(quantity_product, activity_id))
+# def make_activities(cur):
+#     activities = cur.execute('SELECT * FROM Activities')
+#     activity_list = activities.fetchall()
+#     for activity in activity_list:
+#         add_product(cur, activity[0], activity[1])
+#
+#
+# def add_product(cur, activity_id, quantity):
+#     quantity_cursor = cur.execute("SELECT quantity From Products WHERE id = ({})".format(activity_id))
+#     quantity_product = quantity_cursor.fetchone()[0] + quantity
+#     if quantity > 0:
+#         cur.execute("""
+#         UPDATE Products
+#         SET quantity = ({}) WHERE id = ({})
+#         """.format(quantity_product, activity_id))
+#     else:
+#         if quantity_product >= 0:
+#             cur.execute("""UPDATE Products
+#                         SET quantity =({}) WHERE id =({})
+#             """.format(quantity_product, activity_id))
 
 
 conn = sqlite3.connect(DB_NAME)
 cur = conn.cursor()
 insert_to_tables()
-make_activities(conn)
+# make_activities(conn)
 conn.commit()
 conn.close()
 
