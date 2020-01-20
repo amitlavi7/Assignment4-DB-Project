@@ -16,15 +16,23 @@ def insert_to_tables(conn):
 
 
 def make_activities(cur):
-    activities = cur.execute('SELECT * FROM ' + 'Activities')
-    activity_list = activities.fetchall();
+    activities = cur.execute('SELECT * FROM Activities')
+    activity_list = activities.fetchall()
     for activity in activity_list:
-        add_product(activity[0], activity[1])
+        add_product(cur, activity[0], activity[1])
 
 
-def add_product(id, quantity):
-    print(id)
-    print(quantity)
+def add_product(cur, activity_id, quantity):
+    quantity_cursor = cur.execute("SELECT quantity From Products WHERE id = ({})".format(activity_id))
+    if quantity > 0:
+        quantity_product = quantity_cursor.fetchone()[0] + quantity
+        cur.execute("""
+        UPDATE Products
+        SET quantity = ({}) WHERE id = ({})
+        """.format(quantity_product, activity_id))
+    # else:
+    #     quantity_product = quantity_product + quantity
+
 
 conn = sqlite3.connect(DB_NAME)
 cur = conn.cursor()
