@@ -48,5 +48,20 @@ class Activity:
         self.date = date
 
     def __str__(self):
-        return("(" + str(self.product_id) + ", " + str(self.quantity) + ", " + str(self.activator_id) + ", " + str(
+        return ("(" + str(self.product_id) + ", " + str(self.quantity) + ", " + str(self.activator_id) + ", " + str(
             self.date) + ")")
+
+
+class Activity_report:
+    def __init__(self, date, item_description, quantity, seller, supplier):
+        self.date = date
+        self.item_description = item_description
+        self.quantity = quantity
+        self.seller = seller
+        self.supplier = supplier
+
+    def __str__(self):
+        output = (self.date, self.item_description, self.quantity, self.seller, self.supplier)
+        return str(output)
+
+

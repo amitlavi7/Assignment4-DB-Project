@@ -34,6 +34,7 @@ class Coffee_stands:
 
         return [Coffee_stand(*row) for row in all]
 
+
 class Products:
     def __init__(self, conn):
         self._conn = conn
@@ -79,6 +80,7 @@ class Activities:
         """).fetchall()
 
         return [Activity(*row) for row in all]
+
 
 class Suppliers:
     def __init__(self, conn):

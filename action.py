@@ -6,6 +6,7 @@ DB_NAME = "moncafe.db"
 
 
 def insert_to_tables():
+    repo.connect()
     with open("action.txt", "r") as file:
         for line in file:
             if line[-1] == '\n':
@@ -23,33 +24,9 @@ def insert_to_tables():
                     repo.Activities.insert(activity)
 
 
-
-# def make_activities(cur):
-#     activities = cur.execute('SELECT * FROM Activities')
-#     activity_list = activities.fetchall()
-#     for activity in activity_list:
-#         add_product(cur, activity[0], activity[1])
-#
-#
-# def add_product(cur, activity_id, quantity):
-#     quantity_cursor = cur.execute("SELECT quantity From Products WHERE id = ({})".format(activity_id))
-#     quantity_product = quantity_cursor.fetchone()[0] + quantity
-#     if quantity > 0:
-#         cur.execute("""
-#         UPDATE Products
-#         SET quantity = ({}) WHERE id = ({})
-#         """.format(quantity_product, activity_id))
-#     else:
-#         if quantity_product >= 0:
-#             cur.execute("""UPDATE Products
-#                         SET quantity =({}) WHERE id =({})
-#             """.format(quantity_product, activity_id))
-
-
-conn = sqlite3.connect(DB_NAME)
-cur = conn.cursor()
 insert_to_tables()
-# make_activities(conn)
-conn.commit()
-conn.close()
+# conn = sqlite3.connect(DB_NAME)
+# cur = conn.cursor()
+# conn.commit()
+# conn.close()
 

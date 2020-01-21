@@ -1,12 +1,10 @@
-import sqlite3
 import os
-import sys
 
-from DAO import Employees, Coffee_stands, Products, Suppliers
 from DTO import Employee, Coffee_stand, Supplier, Product
 from Repository import repo
 
 DB_NAME = "moncafe.db"
+
 
 def insert_to_tables():
     with open("config.txt", "r") as file:
@@ -30,8 +28,15 @@ def insert_to_tables():
 
 if os.path.isfile(DB_NAME):
     os.remove(DB_NAME)
-#
+
 if not os.path.isfile(DB_NAME):
-    repo.__init__()
+    repo.connect()
     repo.create_tables()
     insert_to_tables()
+    # repo.__init__()
+
+# repo.__init__()
+# repo.connect()
+# repo.create_tables()
+# insert_to_tables()
+

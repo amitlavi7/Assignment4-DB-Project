@@ -3,8 +3,11 @@ import os
 import sys
 
 from DAO import Employees, Coffee_stands, Products, Suppliers, Activities
+from DTO import Activity_report
+from Repository import repo
 
 DB_NAME = "moncafe.db"
+repo.connect()
 
 
 def print_Coffee_stands(conn):
@@ -42,12 +45,21 @@ def print_Suppliers(conn):
         print(Supplier)
 
 
+def print_activity_report():
+    print("Activities")
+    all_activities = repo.get_activity_report()
+    for activity in all_activities:
+        print(activity)
+
+
 def print_all_tables(conn):
     print_Activities(conn)
     print_Coffee_stands(conn)
     print_Employees(conn)
     print_Products(conn)
     print_Suppliers(conn)
+    print_activity_report()
+    repo.get_sales_income()
 
 
 # def print_employees_report():
