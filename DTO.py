@@ -6,7 +6,8 @@ class Employee:
         self.coffee_stand = coffee_stand
 
     def __str__(self):
-        return "(" + str(self.id) + ", " + self.name + ", " + str(self.salary) + ", " + str(self.coffee_stand) + ")"
+        output = (self.id, self.name, self.salary, self.coffee_stand)
+        return str(output)
 
 
 class Supplier:
@@ -16,7 +17,8 @@ class Supplier:
         self.contact_information = contact_information
 
     def __str__(self):
-        return "(" + str(self.id) + ", " + self.name + ", " + str(self.contact_information) + ")"
+        output = (self.id, self.name, self.contact_information)
+        return str(output)
 
 
 class Product:
@@ -27,7 +29,8 @@ class Product:
         self.quantity = quantity
 
     def __str__(self):
-        return "(" + str(self.id) + ", " + self.description + ", " + str(self.price) + ", " + str(self.quantity) + ")"
+        output = (self.id, self.description, self.price, self.quantity)
+        return str(output)
 
 
 class Coffee_stand:
@@ -37,7 +40,8 @@ class Coffee_stand:
         self.number_of_employees = number_of_employees
 
     def __str__(self):
-        return "(" + str(self.id) + ", " + self.location + ", " + str(self.number_of_employees) + ")"
+        output = (self.id, self.location, self.number_of_employees)
+        return str(output)
 
 
 class Activity:
@@ -48,8 +52,8 @@ class Activity:
         self.date = date
 
     def __str__(self):
-        return ("(" + str(self.product_id) + ", " + str(self.quantity) + ", " + str(self.activator_id) + ", " + str(
-            self.date) + ")")
+        output = (self.product_id, self.quantity, self.activator_id, self.date)
+        return str(output)
 
 
 class Activity_report:
@@ -65,3 +69,13 @@ class Activity_report:
         return str(output)
 
 
+class Employee_report:
+    def __init__(self, id, name, salary, location):
+        self.id = id
+        self.name = name
+        self.salary = salary
+        self.location = location
+
+    def __str__(self):
+        output = (self.name, self.salary, self.location)
+        return str(self.name) + " " + str(self.salary) + " " + str(self.location)

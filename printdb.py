@@ -45,6 +45,13 @@ def print_Suppliers(conn):
         print(Supplier)
 
 
+def print_employee_report():
+    print("Employee report")
+    all_employees = repo.get_employee_report()
+    for employee in all_employees:
+        print(str(employee) + " " + str(repo.get_sale_income(employee.id)))
+
+
 def print_activity_report():
     print("Activities")
     all_activities = repo.get_activity_report()
@@ -58,8 +65,10 @@ def print_all_tables(conn):
     print_Employees(conn)
     print_Products(conn)
     print_Suppliers(conn)
+    print()
+    print_employee_report()
+    print()
     print_activity_report()
-    repo.get_sales_income()
 
 
 # def print_employees_report():

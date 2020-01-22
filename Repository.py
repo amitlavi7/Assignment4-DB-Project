@@ -3,7 +3,7 @@ import os
 import sqlite3
 
 from DAO import Employees, Suppliers, Products, Coffee_stands, Activities
-from DTO import Activity_report, Activity, Product
+from DTO import Activity_report, Activity, Product, Employee_report
 
 DB_NAME = "moncafe.db"
 
@@ -85,24 +85,33 @@ class _Repository:
 
         return [Activity_report(*row) for row in all]
 
-    def get_sales_income(self):
+    def get_employee_report(self):
         cur = self._conn.cursor()
         all = cur.execute("""
-        SELECT * FROM Activities
+        SELECT Employees.id, Employees.name, Employees.salary, Coffee_stands.location
+            FROM Employees
+            LEFT JOIN Coffee_stands ON Employees.coffee_stand = Coffee_stands.id
+        ORDER BY Employees.name
         """).fetchall()
 
+        return [Employee_report(*row) for row in all]
+
+    def get_sale_income(self, id):
+        cur = self._conn.cursor()
+        all = cur.execute("""
+         SELECT * FROM Activities
+        """).fetchall()
         activity = [Activity(*row) for row in all]
-        sellers_income = []
+        sum = 0
         for act in activity:
             if act.quantity < 0:
-                jojo = cur.execute("""
-                SELECT * FROM Products WHERE id = ({})""".format(act.product_id))
+                if act.activator_id == id:
+                    products_by_id = cur.execute("""
+                                    SELECT * FROM Products WHERE id = ({})""".format(act.product_id))
+                    pro = Product(*products_by_id.fetchone())
+                    sum = sum + (int(act.quantity) * -1 * float(pro.price))
 
-                pro = Product(*jojo.fetchone())
-                print(pro.price)
-                sellers_income.append(int(act.quantity) * -1 * float(pro.price))
-
-        print(sellers_income)
+        return sum
 
 
 repo = _Repository()
