@@ -1,9 +1,7 @@
 import sqlite3
-import os
-import sys
+
 
 from DAO import Employees, Coffee_stands, Products, Suppliers, Activities
-from DTO import Activity_report
 from Repository import repo
 
 DB_NAME = "moncafe.db"
@@ -46,16 +44,22 @@ def print_Suppliers(conn):
 
 
 def print_employee_report():
-    print("Employee report")
+    flag = True
     all_employees = repo.get_employee_report()
     for employee in all_employees:
+        if flag:
+            print("Employee report")
+            flag = False
         print(str(employee) + " " + str(repo.get_sale_income(employee.id)))
 
 
 def print_activity_report():
-    print("Activities")
+    flag = True
     all_activities = repo.get_activity_report()
     for activity in all_activities:
+        if flag:
+            print("Activities")
+            flag = False
         print(activity)
 
 
@@ -71,12 +75,5 @@ def print_all_tables(conn):
     print_activity_report()
 
 
-# def print_employees_report():
-#     asd
-#
-# def print_activity_report():
-
-
 conn = sqlite3.connect(DB_NAME)
 print_all_tables(conn)
-# print_employees_report()

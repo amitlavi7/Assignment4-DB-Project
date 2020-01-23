@@ -1,4 +1,6 @@
 import sqlite3
+import sys
+
 from DTO import Activity
 from Repository import repo
 
@@ -7,7 +9,7 @@ DB_NAME = "moncafe.db"
 
 def insert_to_tables():
     repo.connect()
-    with open("action.txt", "r") as file:
+    with open(sys.argv[1], "r") as file:
         for line in file:
             if line[-1] == '\n':
                 line = line[:-1]
@@ -22,11 +24,9 @@ def insert_to_tables():
                 if quantity_of_product_after_activity >= 0:
                     repo.Products.update(quantity_of_product_after_activity, lineList[0])
                     repo.Activities.insert(activity)
+    repo._close()
 
 
 insert_to_tables()
-# conn = sqlite3.connect(DB_NAME)
-# cur = conn.cursor()
-# conn.commit()
-# conn.close()
+import printdb
 

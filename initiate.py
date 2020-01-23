@@ -1,4 +1,5 @@
 import os
+import sys
 
 from DTO import Employee, Coffee_stand, Supplier, Product
 from Repository import repo
@@ -7,7 +8,7 @@ DB_NAME = "moncafe.db"
 
 
 def insert_to_tables():
-    with open("config.txt", "r") as file:
+    with open(sys.argv[1], "r") as file:
         for line in file:
             if line[-1] == '\n':
                 line = line[:-1]

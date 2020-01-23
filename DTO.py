@@ -6,8 +6,7 @@ class Employee:
         self.coffee_stand = coffee_stand
 
     def __str__(self):
-        output = (self.id, self.name, self.salary, self.coffee_stand)
-        return str(output)
+        return '(' + str(self.id) + ", '" + str(self.name) + "', " + str(self.salary) + ', ' + str(self.coffee_stand) + ')'
 
 
 class Supplier:
@@ -17,8 +16,7 @@ class Supplier:
         self.contact_information = contact_information
 
     def __str__(self):
-        output = (self.id, self.name, self.contact_information)
-        return str(output)
+        return '(' + str(self.id) + ", '" + str(self.name) + "', '" + str(self.contact_information) + "')"
 
 
 class Product:
@@ -29,8 +27,7 @@ class Product:
         self.quantity = quantity
 
     def __str__(self):
-        output = (self.id, self.description, self.price, self.quantity)
-        return str(output)
+        return '(' + str(self.id) + ", '" + str(self.description) + "', " + str(self.price) + ", " + str(self.quantity) + ")"
 
 
 class Coffee_stand:
@@ -40,8 +37,7 @@ class Coffee_stand:
         self.number_of_employees = number_of_employees
 
     def __str__(self):
-        output = (self.id, self.location, self.number_of_employees)
-        return str(output)
+        return '(' + str(self.id) + ", '" + str(self.location) + "', " + str(self.number_of_employees) + ")"
 
 
 class Activity:
@@ -52,8 +48,7 @@ class Activity:
         self.date = date
 
     def __str__(self):
-        output = (self.product_id, self.quantity, self.activator_id, self.date)
-        return str(output)
+        return '(' + str(self.product_id) + ", " + str(self.quantity) + ", " + str(self.activator_id) + ", " + str(self.date) + ")"
 
 
 class Activity_report:
@@ -77,5 +72,4 @@ class Employee_report:
         self.location = location
 
     def __str__(self):
-        output = (self.name, self.salary, self.location)
         return str(self.name) + " " + str(self.salary) + " " + str(self.location)
